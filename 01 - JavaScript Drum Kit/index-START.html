@@ -58,7 +58,31 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  (function() {
+    'use strict'
 
+    function DrumAndBase() {
+      var elements = document.querySelectorAll('.key');
+
+      document.addEventListener('keydown', function(e) {
+        elements.forEach(function(element) {
+          if(e.keyCode === +element.dataset.key) {
+            var pattern = document.querySelector('audio[data-key="' + +element.dataset.key+ '"]');
+
+            element.classList.add('playing');
+            setTimeout(function() {
+              element.classList.remove('playing');
+            }, 100);
+
+            pattern.currentTime = 0;
+            pattern.play();
+          }
+        });
+      });
+    }
+
+    DrumAndBase();
+  })();
 </script>
 
 
